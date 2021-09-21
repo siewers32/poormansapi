@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Poor man's api</title>
+    <script>
+        fetch('http://127.0.0.1:8000/api/person/23', {mode: 'cors'})
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                console.log('Request successful', data.data);
+                addElement (data.data);
+                for (i = 0; i < data.data.length; i++) {
+                        console.log(data.data[i]);
+                        console.log(data.data[i]);
+                    }
+            })
+            .catch(function(error) {
+                console.log('Request failed', error)
+            });
+
+
+        function addElement(el) {
+            console.log("In addElement");
+            // create a new div element
+            const newDiv = document.createElement("div");
+            const first_name = document.createTextNode(el.first_name + " - ");
+            const last_name = document.createTextNode(el.last_name);
+
+            // add the text nodes to the newly created div
+            newDiv.appendChild(first_name);
+            newDiv.appendChild(last_name);
+
+            // add the newly created element and its content into the DOM
+            const currentDiv = document.getElementById("campers");
+            currentDiv.appendChild(newDiv);
+        }
+    </script>
+    <style>
+        #campers div {
+            background-color:yellow;
+        }
+    </style>
+</head>
+<body>
+<div id="campers"></div>
+</body>
+</html>
