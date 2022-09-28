@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <form action="post.html" method="post">
+        Naam: <input type="text" name="name"><br>
+        Password: <input type="password" name="password">
+        <input type="submit">
+    </form>
+    <script>
+            const form = document.querySelector('form');
+            form.addEventListener('submit', (e)=>{
+                //to prevent reload
+                e.preventDefault();
+                //creates a multipart/form-data object
+                let data = new FormData(form);
+                axios({
+                method  : 'post',
+                url : '/api.php?login',
+                data : data,
+                })
+                .then((res)=>{
+                console.log(res);
+                doeiets()
+                })
+                .catch((err) => {throw err});
+            });
+        function doeiets() {
+            console.log("ik doe iets");
+        }
+    </script>
+</body>
+</html>

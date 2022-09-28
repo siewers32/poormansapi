@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Poor man's api</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <script>
-        fetch('http://127.0.0.1:8000/api/person/search/a', {mode: 'cors'})
+        fetch('http://localhost:8887/api.php', {mode: 'same-origin'})
             .then(function(response) {
                 return response.json();
             })
             .then(function(data) {
-                console.log('Request successful', data.data);
-                for (i = 0; i < data.data.length; i++) {
-                        console.log(data.data[i]);
-                        addElement (data.data[i]);
+                console.log('Request successful', data);
+                for (i = 0; i < data.length; i++) {
+                        console.log(data.length);
+                        // addElement (data[i]);
                     }
             })
             .catch(function(error) {
@@ -24,8 +25,8 @@
             console.log("In addElement");
             // create a new div element
             const newDiv = document.createElement("div");
-            const first_name = document.createTextNode(el.first_name + " - ");
-            const last_name = document.createTextNode(el.last_name);
+            const first_name = document.createTextNode(el.merk + " - ");
+            const last_name = document.createTextNode(el.voertuigsoort);
 
             // add the text nodes to the newly created div
             newDiv.appendChild(first_name);
