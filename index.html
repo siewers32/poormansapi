@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Poor man's api</title>
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>Test</title>
     <script>
-        fetch('http://localhost:8887/api.php', {mode: 'same-origin'})
+        fetch('http://localhost:9998/api.php', {mode: 'cors'})
             .then(function(response) {
                 return response.json();
             })
             .then(function(data) {
-                console.log('Request successful', data);
-                for (i = 0; i < data.length; i++) {
-                        console.log(data.length);
-                        // addElement (data[i]);
+                //console.log('Request successful', data);
+                    for (i = 0; i < data.length; i++) {
+                        console.log(data[i]);
+                        addElement (data[i]);
+
                     }
             })
             .catch(function(error) {
@@ -22,28 +22,27 @@
 
 
         function addElement(el) {
-            console.log("In addElement");
             // create a new div element
             const newDiv = document.createElement("div");
-            const first_name = document.createTextNode(el.merk + " - ");
-            const last_name = document.createTextNode(el.voertuigsoort);
+            const firstName = document.createTextNode(el.first_name + " - ");
+            const lastName = document.createTextNode(el.last_name);
 
             // add the text nodes to the newly created div
-            newDiv.appendChild(first_name);
-            newDiv.appendChild(last_name);
+            newDiv.appendChild(firstName);
+            newDiv.appendChild(lastName);
 
             // add the newly created element and its content into the DOM
-            const currentDiv = document.getElementById("view");
+            const currentDiv = document.getElementById("customers");
             currentDiv.appendChild(newDiv);
         }
     </script>
     <style>
-        #view div {
+        #customers div {
             background-color:yellow;
         }
     </style>
 </head>
 <body>
-<div id="view"></div>
+<div id="customers"></div>
 </body>
 </html>
