@@ -8,7 +8,7 @@ logoutForm.addEventListener('submit', logout);
 
 
 function getMovies(event) {       
-    result = getData('http://127.0.0.1:8000/api/movies-with-ratings', sessionStorage.getItem('token'))
+    result = getData('http://127.0.0.1:8000/api/movies-with-ratings')
     .then((data) => {
         console.log(data)
     })
@@ -20,10 +20,10 @@ function getMovies(event) {
 
 function logout(event) {
     console.log("in logout")
-    result = getData('http://127.0.0.1:8000/api/logout', sessionStorage.getItem('token'))
+    result = postData('http://127.0.0.1:8000/api/logout', {})
     .then((data) => {
         console.log(data)
-        sessionStorage.setItem("token", "44|WPjn7Ke40ZR60KwJrxt1UUiIUIXhQLntQJZ7p1xK")
+        sessionStorage.setItem("token", "no-token")
         console.log(sessionStorage.getItem("token"))
         console.log(data)
     })
@@ -62,20 +62,21 @@ function login(event) {
     event.preventDefault();
 }
 
-async function getData(url='', token) {
+async function getData(url='') {
     const response = await fetch(url,{
+        method: 'GET',
         mode: 'cors',
         credentials: 'same-origin', // include, *same-origin, omit
         headers: {
             'Content-Type': 'application/json',
             //'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Bearer ' + token,
+            'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
         },
     })
     return response.json();
 }
 
-async function postData(url = '', data = {}) {
+async function postData(url = '', data = {}, method) {
     // Default options are marked with *
     const response = await fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -89,7 +90,7 @@ async function postData(url = '', data = {}) {
         },
         redirect: 'follow', // manual, *follow, error
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        body: JSON.stringify(data) // body data type must match "Content-Type" header       
     });
     return response.json(); // parses JSON response into native JavaScript objects
 }
